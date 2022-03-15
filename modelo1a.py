@@ -1,76 +1,41 @@
-{
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "name": "TFG.ipynb",
-      "provenance": [],
-      "authorship_tag": "ABX9TyNTXCo8V9SE+ZADM7yScwnJ",
-      "include_colab_link": true
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    },
-    "language_info": {
-      "name": "python"
-    },
-    "accelerator": "GPU"
-  },
-  "cells": [
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "view-in-github",
-        "colab_type": "text"
-      },
-      "source": [
-        "<a href=\"https://colab.research.google.com/github/jsalvadorlpz/jsalvadorlpz/blob/main/modelo1a.py\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "# Copyright (c) Facebook, Inc. and its affiliates.\n",
-        "from abc import ABCMeta, abstractmethod\n",
-        "import torch.nn as nn\n",
-        "\n",
-        "from detectron2.layers import ShapeSpec\n",
-        "from detectron2.modeling import build_backbone\n",
-        "from detectron2.modeling import BACKBONE_REGISTRY, Backbone\n",
-        "\n",
-        "__all__ = [\"Backbone\"]\n",
-        "\n",
-        "class conv_block():\n",
-        "  # CONV 3X3  FLITROS1 STRIDE=1 PADDING=1\n",
-        "  # BATCHNORM\n",
-        "  #RELU\n",
-        "  # CONV 3X3 FILTROS2 STRIDE=1 PADDING=1\n",
-        "  # BATCHNOMR\n",
-        "  #RELU\n",
-        "  # CONV 3X3 FLITROS3 STRIDE=1 PADDING=1\n",
-        "  #MAXPOOL2D\n",
-        "  def __init__(self,in_channels,kernel_size,filters, stride,padding):\n",
-        "    filtro1,filtro2,filtro3 = filters\n",
-        "    self.conv1= nn.Conv2d(in_channels=in_channels,out_channels=filtro1, kernel_size=kernel_size,stride=stride,padding=padding)\n",
-        "    self.batchNomr1 =nn.BatchNorm2d(filtro1)\n",
-        "    self.ReLU = nn.ReLU()\n",
-        "    self.conv2= nn.Conv2d(in_channels=filtro1,out_channels=filtro2, kernel_size=kernel_size,stride=stride,padding=padding)\n",
-        "    self.BatchNorm2 = nn.BatchNorm2d(filtro2)\n",
-        "    self.conv3= nn.Conv2d(in_channels=filtro2,out_channels=filtro3, kernel_size=kernel_size,stride=stride,padding=padding)\n",
-        "    self.BatchNorm3 = nn.BatchNorm2d(filtro3)\n",
-        "    self.maxpool = nn.MaxPool2d(2,1)\n",
-        "  def fordward(self,x):\n",
-        "    x = self.conv1(x)\n",
-        "    x= self.BatchNorm1(x)\n",
-        "    x= self.ReLU(x)\n",
-        "    x = self.conv2(x)\n",
-        "    x= self.BatchNorm2(x)\n",
-        "    x= self.ReLU(x)\n",
-        "    x = self.conv3(x)\n",
-        "    x= self.BatchNorm3(x)\n",
-        "    x= self.ReLU(x)\n",
-        "    x =self.maxpool(x)\n",
+from abc import ABCMeta, abstractmethod
+import torch.nn as nn
+
+from detectron2.layers import ShapeSpec
+from detectron2.modeling import build_backbone\n
+from detectron2.modeling import BACKBONE_REGISTRY, Backbone
+__all__ = [\"Backbone\"]
+           
+class conv_block():
+   # CONV 3X3  FLITROS1 STRIDE=1 PADDING=1
+   # BATCHNORM
+   #RELU
+   # CONV 3X3 FILTROS2 STRIDE=1 PADDING=1\n",
+   # BATCHNOMR\n",
+   #RELU\n",
+   # CONV 3X3 FLITROS3 STRIDE=1 PADDING=1\n",
+   #MAXPOOL2D\n",
+   def __init__(self,in_channels,kernel_size,filters, stride,padding):\n",
+     filtro1,filtro2,filtro3 = filters\n",
+     self.conv1= nn.Conv2d(in_channels=in_channels,out_channels=filtro1, kernel_size=kernel_size,stride=stride,padding=padding)\n",
+     self.batchNomr1 =nn.BatchNorm2d(filtro1)\n",
+     self.ReLU = nn.ReLU()\n",
+     self.conv2= nn.Conv2d(in_channels=filtro1,out_channels=filtro2, kernel_size=kernel_size,stride=stride,padding=padding)\n",
+     self.BatchNorm2 = nn.BatchNorm2d(filtro2)\n",
+     self.conv3= nn.Conv2d(in_channels=filtro2,out_channels=filtro3, kernel_size=kernel_size,stride=stride,padding=padding)\n",
+     self.BatchNorm3 = nn.BatchNorm2d(filtro3)\n",
+     self.maxpool = nn.MaxPool2d(2,1)\n",
+   def fordward(self,x):\n",
+     x = self.conv1(x)\n",
+     x= self.BatchNorm1(x)\n",
+     x= self.ReLU(x)\n",
+     x = self.conv2(x)\n",
+     x= self.BatchNorm2(x)\n",
+     x= self.ReLU(x)\n",
+     x = self.conv3(x)\n",
+     x= self.BatchNorm3(x)\n",
+     x= self.ReLU(x)\n",
+     x =self.maxpool(x)\n",
         "\n",
         "    return x\n",
         "\n",
